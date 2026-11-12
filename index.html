@@ -1,0 +1,592 @@
+لقد قمت بإضافة رابط الصورة الذي أرسلته ([https://ibb.co/bM7vz3bv](https://ibb.co/bM7vz3bv)) إلى الكود الخاص بك.
+ولجعل الصورة تظهر بشكل جميل واحترافي في واجهة اللوحة (مثلاً بجانب العنوان أو كأيقونة)، قمت بإضافتها داخل قسم العنوان (.brand-logo) لتظهر بشكل دائري متناسق مع التصميم.
+إليك الكود المحدث بالكامل:
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0a0a" />
+    <title>
+      STAIKA_XIT — لوحة السبام
+    </title>
+    <!-- ✅ سكربت كلاود فلير للكابتشا -->
+    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async="" defer="">
+    </script>
+    <style>
+      :root {
+  --bg:#0a0a0a; --bg-card:#0f0f0f; --bg-input:#0a0a0a; --bg-elevated:#161616;
+  --border:#1f1f1f; --border-light:#2a2a2a; --text:#ffffff; --text-dim:#888;
+  --text-muted:#555; --accent:#d4d4d4; --accent-contrast:#0a0a0a;
+  --danger:#ff4444; --success:#4ade80; --warning:#fbbf24;
+  --radius:8px; --radius-sm:6px;
+  --shadow:0 10px 40px rgba(0,0,0,0.6);
+}
+[data-theme="light"] {
+  --bg:#f5f5f5; --bg-card:#ffffff; --bg-input:#ffffff; --bg-elevated:#ffffff;
+  --border:#e5e5e5; --border-light:#d4d4d4; --text:#0a0a0a; --text-dim:#666;
+  --text-muted:#999; --accent:#0a0a0a; --accent-contrast:#ffffff;
+  --danger:#dc2626; --success:#16a34a; --warning:#d97706;
+  --shadow:0 10px 40px rgba(0,0,0,0.12);
+}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Tahoma,sans-serif;
+  background:var(--bg); color:var(--text); min-height:100vh;
+  display:flex; flex-direction:column; font-size:15px; overflow-x:hidden;
+  transition:background .25s, color .25s;
+}
+/* ===== Topbar ===== */
+.topbar{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:18px 22px; border-bottom:1px solid var(--border);
+  background:var(--bg); position:sticky; top:0; z-index:100;
+}
+.brand{display:flex; align-items:center; gap:10px; user-select:none}
+.brand-logo{
+  width:34px; height:34px; border-radius:50%; object-fit:cover;
+  border:1.5px solid var(--danger); box-shadow:0 0 10px rgba(255,68,68,.3);
+}
+.brand-name{font-size:18px; font-weight:900; letter-spacing:2px}
+.topbar-actions{display:flex; gap:10px}
+.icon-btn{
+  width:40px; height:40px; display:flex; align-items:center; justify-content:center;
+  background:transparent; border:1px solid var(--border); border-radius:var(--radius);
+  color:var(--text-dim); cursor:pointer; transition:all .2s;
+}
+.icon-btn:hover{border-color:var(--border-light); color:var(--text); background:var(--bg-card)}
+.icon-btn svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:1.8; stroke-linecap:round; stroke-linejoin:round}
+.icon-btn .moon-icon{display:none}
+[data-theme="light"] .icon-btn .sun-icon{display:none}
+[data-theme="light"] .icon-btn .moon-icon{display:block}
+
+/* ===== Main ===== */
+.main{flex:1; display:flex; align-items:flex-start; justify-content:center; padding:40px 20px}
+.wrap{width:100%; max-width:480px}
+.welcome{text-align:center; margin-bottom:32px}
+.welcome h1{font-size:26px; font-weight:700; margin-bottom:8px; letter-spacing:-.3px}
+.welcome p{font-size:14px; color:var(--text-dim)}
+
+/* ===== Card ===== */
+.card{
+  background:var(--bg-card); border:1px solid var(--border);
+  border-radius:14px; padding:24px; box-shadow:var(--shadow);
+}
+.field{display:flex; flex-direction:column; gap:10px; margin-bottom:18px}
+.field label{font-size:14px; font-weight:600; padding-left:2px}
+.input-wrap{
+  display:flex; align-items:center; background:var(--bg-input);
+  border:1.5px solid var(--border-light); border-radius:var(--radius);
+  transition:all .2s;
+}
+.input-wrap:focus-within{border-color:var(--text-dim); box-shadow:0 0 0 3px rgba(128,128,128,.08)}
+.input-icon{padding-left:14px; color:var(--text-muted); display:flex; align-items:center}
+.input-icon svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:1.7}
+.input-wrap input, .input-wrap select{
+  flex:1; padding:14px; background:transparent; border:none; outline:none;
+  color:var(--text); font-family:inherit; font-size:15px; min-width:0; appearance:none;
+}
+.input-wrap input::placeholder{color:var(--text-muted)}
+.row{display:grid; grid-template-columns:1fr auto; gap:10px}
+
+/* ===== Submit ===== */
+.submit-btn{
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  width:100%; padding:15px; background:var(--accent); color:var(--accent-contrast);
+  border:none; border-radius:var(--radius); font-family:inherit; font-size:15px;
+  font-weight:700; cursor:pointer; transition:all .2s; letter-spacing:.2px;
+}
+.submit-btn:hover:not(:disabled){transform:translateY(-1px); filter:brightness(1.1); box-shadow:0 6px 20px rgba(128,128,128,.15)}
+.submit-btn:active:not(:disabled){transform:translateY(0)}
+.submit-btn:disabled{opacity:.6; cursor:wait}
+.submit-btn svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:2; stroke-linecap:round; stroke-linejoin:round}
+
+/* ===== Watch Ad Button (Without Ad Link) ===== */
+.watch-ad-btn{
+  width:100%; padding:12px; background:linear-gradient(135deg, #fbbf24 0%, #d97706 100%);
+  color:#0a0a0a; border:none; border-radius:var(--radius);
+  font-weight:800; font-size:13px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center; gap:8px;
+  transition:all .2s; margin-top:10px;
+}
+.watch-ad-btn:hover{transform:translateY(-1px); box-shadow:0 4px 15px rgba(251,191,36,.3)}
+.watch-ad-btn svg{width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2}
+
+/* ===== Targets list ===== */
+.targets-title{
+  display:flex; align-items:center; justify-content:space-between;
+  margin:26px 0 12px; font-size:13px; font-weight:700;
+  text-transform:uppercase; letter-spacing:1.2px; color:var(--text-dim);
+}
+.targets-title .count{
+  background:var(--bg-elevated); border:1px solid var(--border);
+  padding:3px 10px; border-radius:20px; font-size:11px; color:var(--text);
+}
+.targets-list{display:flex; flex-direction:column; gap:8px}
+.target-item{
+  display:flex; align-items:center; justify-content:space-between; gap:10px;
+  padding:12px 14px; background:var(--bg-elevated);
+  border:1px solid var(--border); border-radius:var(--radius);
+  transition:all .2s;
+}
+.target-item:hover{border-color:var(--border-light)}
+.target-info{display:flex; flex-direction:column; gap:3px; min-width:0; flex:1}
+.target-uid{font-family:monospace; font-size:14px; font-weight:700; color:var(--text)}
+.target-meta{font-size:11px; color:var(--text-muted); font-family:monospace; display: flex; align-items: center; gap: 5px;}
+.target-meta .timer-val { color: var(--warning); font-weight: bold; }
+.empty{
+  text-align:center; padding:30px 20px; color:var(--text-muted);
+  font-size:13px; background:var(--bg-elevated); border:1px dashed var(--border-light);
+  border-radius:var(--radius);
+}
+
+/* ===== Drawer ===== */
+.drawer-overlay{
+  position:fixed; inset:0; background:rgba(0,0,0,.55); backdrop-filter:blur(4px);
+  z-index:199; opacity:0; visibility:hidden; transition:all .3s;
+}
+.drawer-overlay.show{opacity:1; visibility:visible}
+.drawer{
+  position:fixed; top:0; right:0; width:min(88vw,360px); height:100vh;
+  background:var(--bg-card); border-right:1px solid var(--border);
+  z-index:200; transform:translateX(100%); transition:transform .35s cubic-bezier(.2,.8,.2,1);
+  display:flex; flex-direction:column; overflow-y:auto;
+}
+.drawer.open{transform:translateX(0)}
+.drawer-header{
+  padding:20px 22px; display:flex; align-items:center; justify-content:space-between;
+  border-bottom:1px solid var(--border); position:sticky; top:0; background:var(--bg-card); z-index:2;
+}
+.drawer-title{font-size:16px; font-weight:800; letter-spacing:.5px}
+.drawer-close{
+  width:36px; height:36px; display:flex; align-items:center; justify-content:center;
+  background:transparent; border:1px solid var(--border); border-radius:var(--radius);
+  color:var(--text-dim); cursor:pointer;
+}
+.drawer-close:hover{color:var(--text); border-color:var(--border-light)}
+.drawer-close svg{width:16px; height:16px; stroke:currentColor; fill:none; stroke-width:2}
+.drawer-body{padding:20px 22px 30px; display:flex; flex-direction:column; gap:22px}
+.section-label{
+  font-size:11px; font-weight:700; text-transform:uppercase;
+  letter-spacing:1.4px; color:var(--text-muted); margin-bottom:10px;
+}
+.menu-btn{
+  display:flex; align-items:center; gap:14px; padding:14px 16px;
+  background:var(--bg-elevated); border:1px solid var(--border); border-radius:var(--radius);
+  color:var(--text); text-decoration:none; font-size:14px; font-weight:600;
+  cursor:pointer; transition:all .2s; margin-bottom:10px;
+}
+.menu-btn:hover{border-color:var(--border-light); transform:translateY(-1px)}
+.menu-btn .ico{
+  width:36px; height:36px; display:flex; align-items:center; justify-content:center;
+  border-radius:var(--radius-sm); flex-shrink:0;
+}
+.menu-btn .ico svg{width:18px; height:18px; stroke:currentColor; fill:none; stroke-width:1.8}
+.menu-btn .txt{display:flex; flex-direction:column; gap:2px; flex:1; min-width:0}
+.menu-btn .title{font-size:14px; font-weight:700}
+.menu-btn .sub{font-size:12px; color:var(--text-dim); overflow:hidden; text-overflow:ellipsis; white-space:nowrap}
+.menu-btn.telegram .ico{background:rgba(34,158,217,.12); color:#229ED9}
+.rename-input{
+  width:100%; padding:11px 14px; background:var(--bg-input);
+  border:1.5px solid var(--border); border-radius:var(--radius);
+  color:var(--text); font-family:inherit; font-size:13px; margin-bottom:10px;
+}
+
+/* ===== Toast ===== */
+.toast{
+  position:fixed; top:20px; left:50%; transform:translateX(-50%) translateY(-100px);
+  background:var(--bg-elevated); border:1px solid var(--border-light); color:var(--text);
+  padding:12px 20px; border-radius:var(--radius); font-size:13px; font-weight:600;
+  z-index:1000; transition:transform .3s cubic-bezier(.2,.8,.2,1);
+  box-shadow:var(--shadow); max-width:90%; text-align:center;
+}
+.toast.show{transform:translateX(-50%) translateY(0)}
+.toast.success{border-color:rgba(74,222,128,.4); color:var(--success)}
+.toast.error{border-color:rgba(255,68,68,.4); color:var(--danger)}
+
+/* ===== Footer ===== */
+.footer{
+  padding:18px 22px; display:flex; justify-content:center; align-items:center; gap:6px;
+  color:var(--text-muted); font-size:12px; border-top:1px solid var(--border);
+}
+.footer strong{color:var(--text-dim); font-weight:700; letter-spacing:1.5px}
+    </style>
+  </head>
+  <body>
+    <!-- Topbar -->
+    <header class="topbar">
+      <div class="brand">
+        <button class="icon-btn" id="menu-toggle" title="القائمة" style="margin-left: 5px;">
+          <svg viewBox="0 0 24 24">
+            <path d="M4 6h16M4 12h16M4 18h16">
+            </path>
+          </svg>
+        </button>
+        <!-- ✅ تم إدراج رابط الصورة هنا كشعار للوحة -->
+        <img src="https://ibb.co/bM7vz3bv" alt="Logo" class="brand-logo" />
+        <span class="brand-name">STAIKA_XIT</span>
+      </div>
+      <div class="topbar-actions">
+        <button class="icon-btn" id="theme-toggle" title="تغيير المظهر">
+          <svg class="sun-icon" viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="4">
+            </circle>
+            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41">
+            </path>
+          </svg>
+          <svg class="moon-icon" viewBox="0 0 24 24">
+            <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z">
+            </path>
+          </svg>
+        </button>
+      </div>
+    </header>
+    <!-- Main -->
+    <main class="main">
+      <div class="wrap">
+        <div class="welcome">
+          <h1>
+            لوحة سبام STAIKA_XIT
+          </h1>
+          <p>
+            أدخل UID الهدف وابدأ السبام (مدة 15 دقيقة)
+          </p>
+        </div>
+        <div class="card">
+          <!-- UID input -->
+          <div class="field">
+            <label for="uid">
+              UID الهدف
+            </label>
+            <div class="input-wrap">
+              <span class="input-icon">              <svg viewBox="0 0 24 24">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2">
+                </path>
+                <circle cx="12" cy="7" r="4">
+                </circle>
+              </svg>
+</span>
+              <input type="text" id="uid" placeholder="مثال: 123456789" inputmode="numeric" autocomplete="off" />
+            </div>
+          </div>
+          <!-- Duration + Start -->
+          <div class="row">
+            <div class="field" style="margin-bottom:0">
+              <label for="duration">
+                مدة السبام
+              </label>
+              <div class="input-wrap">
+                <span class="input-icon">                <svg viewBox="0 0 24 24">
+                  <circle cx="12" cy="12" r="10">
+                  </circle>
+                  <path d="M12 6v6l4 2">
+                  </path>
+                </svg>
+</span>
+                <select id="duration" disabled="" style="opacity: 0.8; cursor: not-allowed;">
+                  <option value="15" selected="">
+                    15 دقيقة (الافتراضي)
+                  </option>
+                </select>
+              </div>
+            </div>
+            <div class="field" style="margin-bottom:0; justify-content:flex-end">
+              <button class="submit-btn" id="start-btn" onclick="startSpam()">
+                <svg viewBox="0 0 24 24">
+                  <polygon points="5 3 19 12 5 21 5 3">
+                  </polygon>
+                </svg>
+                بدء مقبرة السبام
+              </button>
+            </div>
+          </div>
+          <!-- ✅ الكابتشا (Cloudflare Turnstile) مع مفتاحك الجديد -->
+          <div class="cf-turnstile" data-sitekey="0x4AAAAAAF9rDy-Vk1j2AWZd" style="margin: 15px 0; display: flex; justify-content: center;">
+          </div>
+          <!-- ✅ زر زيادة الوقت (بدون إعلانات خارجية) -->
+          <button class="watch-ad-btn" onclick="addExtraTimeDirect()">
+            <svg viewBox="0 0 24 24">
+              <polygon points="5 3 19 12 5 21 5 3">
+              </polygon>
+            </svg>
+            تمديد 15 دقيقة إضافية (للأيدي المكتوب)
+          </button>
+          <!-- Targets list -->
+          <div class="targets-title">
+            <span>            الإيديات النشطة
+</span>
+            <span class="count" id="targets-count">            0
+</span>
+          </div>
+          <div class="targets-list" id="targets-list">
+            <div class="empty">
+              لا توجد إيديات — أضف UID للبدء
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <!-- Footer -->
+    <footer class="footer">
+      <strong>STAIKA_XIT</strong>
+      <span>· لوحة السبام</span>
+    </footer>
+    <!-- Drawer -->
+    <div class="drawer-overlay" id="drawer-overlay">
+    </div>
+    <aside class="drawer" id="drawer">
+      <div class="drawer-header">
+        <span class="drawer-title">        القائمة
+</span>
+        <button class="drawer-close" id="drawer-close">
+          <svg viewBox="0 0 24 24">
+            <line x1="18" y1="6" x2="6" y2="18">
+            </line>
+            <line x1="6" y1="6" x2="18" y2="18">
+            </line>
+          </svg>
+        </button>
+      </div>
+      <div class="drawer-body">
+        <!-- Contact -->
+        <div>
+          <div class="section-label">
+            تواصل معي
+          </div>
+          <a class="menu-btn telegram" href="https://t.me/aminee75" target="_blank">          <div class="ico">
+            <svg viewBox="0 0 24 24">
+              <path d="M21.5 3.5L2.5 10.5l6 2 1.5 7 3.5-4 5 3.5 3-15.5z">
+              </path>
+            </svg>
+          </div>
+          <div class="txt">
+            <span class="title">            تليجرام
+</span>
+            <span class="sub">            @aminee75
+</span>
+          </div>
+</a>
+        </div>
+        <!-- Rename spam -->
+        <div>
+          <div class="section-label">
+            تغيير اسم السبام
+          </div>
+          <input type="text" class="rename-input" id="rename-input" placeholder="iG:[C][B][FF0000] @STAIKA_XIT" maxlength="60" />
+          <button class="menu-btn rename" onclick="saveRename()" style="margin-bottom:0">
+            <div class="ico">
+              <svg viewBox="0 0 24 24">
+                <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7">
+                </path>
+                <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z">
+                </path>
+              </svg>
+            </div>
+            <div class="txt">
+              <span class="title">              حفظ الاسم
+</span>
+              <span class="sub">              يُطبق على الحزم القادمة
+</span>
+            </div>
+          </button>
+        </div>
+        <!-- Buy panel -->
+        <div>
+          <div class="section-label">
+            شراء اللوحة
+          </div>
+          <a class="menu-btn telegram" href="https://t.me/aminee75" style="border-color:var(--warning); background:rgba(251,191,36,.05)" target="_blank">          <div class="ico" style="background:rgba(251,191,36,.15); color:var(--warning)">
+            <svg viewBox="0 0 24 24">
+              <path d="M20 12v6a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2v-6M12 2v13M7 7l5-5 5 5">
+              </path>
+            </svg>
+          </div>
+          <div class="txt">
+            <span class="title" style="color:var(--warning)">            شراء لوحة سبام باسمك
+</span>
+            <span class="sub">            تواصل عبر تليجرام
+</span>
+          </div>
+</a>
+        </div>
+      </div>
+    </aside>
+    <!-- Toast -->
+    <div class="toast" id="toast">
+    </div>
+    <script>
+      let currentTargets = [];
+      let timerInterval = null;
+
+      (function initTheme(){
+        const t = localStorage.getItem("staika_theme");
+        if (t === "light") document.documentElement.setAttribute("data-theme","light");
+      })();
+      document.getElementById("theme-toggle").addEventListener("click", ()=>{
+        const html = document.documentElement;
+        const cur = html.getAttribute("data-theme") === "light" ? "light" : "dark";
+        const next = cur === "light" ? "dark" : "light";
+        html.setAttribute("data-theme", next);
+        localStorage.setItem("staika_theme", next);
+        showToast(next === "light" ? "تم تفعيل الوضع الفاتح" : "تم تفعيل الوضع الداكن", "success");
+      });
+
+      const drawer = document.getElementById("drawer");
+      const drawerOverlay = document.getElementById("drawer-overlay");
+      function openDrawer(){ drawer.classList.add("open"); drawerOverlay.classList.add("show"); document.body.style.overflow="hidden"; }
+      function closeDrawer(){ drawer.classList.remove("open"); drawerOverlay.classList.remove("show"); document.body.style.overflow=""; }
+      document.getElementById("menu-toggle").addEventListener("click", openDrawer);
+      document.getElementById("drawer-close").addEventListener("click", closeDrawer);
+      drawerOverlay.addEventListener("click", closeDrawer);
+
+      function showToast(msg, type="info"){
+        const t = document.getElementById("toast");
+        t.textContent = msg;
+        t.className = "toast show " + type;
+        setTimeout(()=> t.className = "toast " + type, 3000);
+      }
+
+      async function api(url, method="GET", body=null){
+        const opts = { method, headers: {"Content-Type": "application/json"} };
+        if (body) opts.body = JSON.stringify(body);
+        try {
+          const r = await fetch(url, opts);
+          return await r.json();
+        } catch (e) {
+          return { success: false, message: "فشل الاتصال بالسيرفر" };
+        }
+      }
+
+      function formatTime(seconds) {
+        if (seconds <= 0) return "منتهي";
+        const m = Math.floor(seconds / 60);
+        const s = seconds % 60;
+        return `${m}:${s < 10 ? '0' : ''}${s}`;
+      }
+
+      function updateTimers() {
+        currentTargets.forEach(uid => {
+          const timerEl = document.getElementById(`timer-${uid}`);
+          if (timerEl) {
+            const expiry = localStorage.getItem('spam_time_' + uid);
+            if (expiry) {
+              const remaining = Math.floor((parseInt(expiry) - Date.now()) / 1000);
+              if (remaining > 0) {
+                timerEl.textContent = formatTime(remaining);
+                timerEl.style.color = "var(--warning)";
+              } else {
+                timerEl.textContent = "منتهي";
+                timerEl.style.color = "var(--danger)";
+              }
+            } else {
+              timerEl.textContent = "--:--";
+            }
+          }
+        });
+      }
+
+      function renderTargets(){
+        const wrap = document.getElementById("targets-list");
+        const countEl = document.getElementById("targets-count");
+        countEl.textContent = currentTargets.length;
+
+        if (!currentTargets.length){
+          wrap.innerHTML = '<div class="empty">لا توجد إيديات — أضف UID للبدء</div>';
+          return;
+        }
+        wrap.innerHTML = "";
+        currentTargets.forEach(uid => {
+          const div = document.createElement("div");
+          div.className = "target-item";
+          div.innerHTML = `
+            <div class="target-info">
+              <span class="target-uid">${uid}</span>
+              <span class="target-meta">الوقت المتبقي: <span class="timer-val" id="timer-${uid}">--:--</span></span>
+            </div>`;
+          wrap.appendChild(div);
+        });
+        updateTimers();
+      }
+
+      async function refreshStatus(){
+        try {
+          const d = await api("/status");
+          if (!d.success) return;
+          currentTargets = d.active_targets || [];
+          currentTargets.forEach(uid => {
+            if (!localStorage.getItem('spam_time_' + uid)) {
+              localStorage.setItem('spam_time_' + uid, Date.now() + (15 * 60 * 1000));
+            }
+          });
+          renderTargets();
+        } catch (e) {}
+      }
+
+      function startSpam(){
+        const uid = document.getElementById("uid").value.trim();
+        if (!uid || !/^\d+$/.test(uid)){ showToast("أدخل UID صحيح", "error"); return; }
+        if (currentTargets.includes(uid)){ showToast("هذا UID موجود بالفعل", "error"); return; }
+        
+        const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]');
+        if (!turnstileResponse || !turnstileResponse.value) {
+          showToast("⚠️ الرجاء إكمال التحقق الأمني (الكابتشا) أولاً", "error");
+          return;
+        }
+        actuallyStart(uid);
+      }
+
+      async function actuallyStart(uid){
+        const res = await api("/spm?uid=" + uid, "GET");
+        if (res.success){
+          document.getElementById("uid").value = "";
+          showToast("✅ تم بدء السبام على " + uid, "success");
+          if (window.turnstile) window.turnstile.reset();
+          localStorage.setItem('spam_time_' + uid, Date.now() + (15 * 60 * 1000));
+          refreshStatus();
+        } else {
+          showToast(res.message || "خطأ", "error");
+        }
+      }
+
+      // ✅ دالة التمديد المباشرة بدون أي روابط إعلانية
+      async function addExtraTimeDirect(){
+        const uid = document.getElementById("uid").value.trim();
+        if (!uid) {
+          showToast("⚠️ اكتب الإيدي في الخانة أولاً لكي تزيد وقته", "error");
+          return;
+        }
+        if (!currentTargets.includes(uid)) {
+          showToast("⚠️ هذا الإيدي غير نشط، أضفه للسبام أولاً", "error");
+          return;
+        }
+
+        showToast("⏳ جاري إضافة الوقت...", "info");
+        
+        const res = await api(`/extend?uid=${uid}`, "GET");
+        if(res.success) {
+            let currentExpiry = localStorage.getItem('spam_time_' + uid);
+            let newExpiry = (currentExpiry ? parseInt(currentExpiry) : Date.now()) + (15 * 60 * 1000);
+            localStorage.setItem('spam_time_' + uid, newExpiry);
+            showToast(`✅ تم إضافة 15 دقيقة للإيدي ${uid}!`, "success");
+            updateTimers();
+        } else {
+            showToast("حدث خطأ أثناء إضافة الوقت", "error");
+        }
+      }
+
+      function saveRename(){
+        const v = document.getElementById("rename-input").value.trim();
+        if (!v){ showToast("اكتب اسماً أولاً", "error"); return; }
+        showToast("✅ تم حفظ الاسم (تجريبي)", "success");
+      }
+
+      if (timerInterval) clearInterval(timerInterval);
+      timerInterval = setInterval(updateTimers, 1000);
+
+      refreshStatus();
+      setInterval(refreshStatus, 5000);
+    </script>
+  </body>
+</html>
+
