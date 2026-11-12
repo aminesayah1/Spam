@@ -1,31 +1,32 @@
 const express = require('express');
 const cors = require('cors');
-const path = require('path'); // 1. تمت إضافة مكتبة المسارات
+const path = require('path');
 const app = express();
 
 app.use(express.json());
 app.use(cors());
 
-// 2. تفعيل قراءة الملفات الثابتة في نفس المجلد
+// قراءة الملفات الثابتة في نفس المجلد
 app.use(express.static(__dirname));
 
-// 3. مسار الصفحة الرئيسية لعرض ملف index.html
+// مسار الصفحة الرئيسية لعرض ملف index.html
 app.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, 'index.html'));
 });
 
-// تخزين مؤقت للإيديات النشطة في الذاكرة مع وقت انتهاء الصلاحية
+// الإيديات النشطة في الذاكرة مع وقت انتهاء الصلاحية
 let activeTargets = {};
 
-// 1. مسار جلب حالة الإيديات النشطة
+// مسار جلب حالة الإيديات النشطة
 app.get('/status', (req, res) => {
     const now = Date.now();
-    // تصفية الإيديات التي انتهى وقتها تلقائياً
+    
+    // تصفية وحذف الإيديات التي انتهى وقتها تلقائياً
     const validTargets = Object.keys(activeTargets).filter(uid => {
         if (activeTargets[uid] > now) {
             return true;
         } else {
-            delete activeTargets[uid]; // حذف المنتهي
+            delete activeTargets[uid];
             return false;
         }
     });
@@ -36,44 +37,34 @@ app.get('/status', (req, res) => {
     });
 });
 
-// 2. مسار بدء السبام للإيدي الجديد (لمدة 15 دقيقة افتراضياً)
+// مسار بدء السبام
 app.get('/spm', (req, res) => {
     const uid = req.query.uid;
-    if (!uid) {
-        return res.json({ success: false, message: "الرجاء إدخال UID" });
+    if (!uid || !/^\d+$/.test(uid)) {
+        return res.json({ success: false, message: "UID غير صالح" });
     }
 
-    const durationMs = 15 * 60 * 1000; // 15 دقيقة
+    // تعيين وقت الانتهاء بعد 15 دقيقة
+    const durationMs = 15 * 60 * 1000;
     activeTargets[uid] = Date.now() + durationMs;
 
-    res.json({
-        success: true,
-        message: "تم بدء السبام بنجاح"
-    });
+    res.json({ success: true, message: "تم البدء بنجاح" });
 });
 
-// 3. مسار تمديد الوقت (عند الضغط على زر التمديد)
+// مسار تمديد الوقت
 app.get('/extend', (req, res) => {
     const uid = req.query.uid;
     if (!uid || !activeTargets[uid]) {
-        return res.json({ success: false, message: "الإيدي غير نشط أو غير موجود" });
+        return res.json({ success: false, message: "الأيدي غير موجود أو منتهي" });
     }
 
-    const extensionMs = 15 * 60 * 1000; // إضافة 15 دقيقة
-    if (activeTargets[uid] > Date.now()) {
-        activeTargets[uid] += extensionMs;
-    } else {
-        activeTargets[uid] = Date.now() + extensionMs;
-    }
+    const extensionMs = 15 * 60 * 1000;
+    activeTargets[uid] = Math.max(activeTargets[uid], Date.now()) + extensionMs;
 
-    res.json({
-        success: true,
-        message: "تم تمديد الوقت بنجاح"
-    });
+    res.json({ success: true, message: "تم التمديد بنجاح" });
 });
 
-// تشغيل السيرفر على البورت الافتراضي للمنصات أو بورت 3000
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
 });
