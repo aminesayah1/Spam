@@ -1,9 +1,18 @@
 const express = require('express');
 const cors = require('cors');
+const path = require('path'); // 1. تمت إضافة مكتبة المسارات
 const app = express();
 
 app.use(express.json());
 app.use(cors());
+
+// 2. تفعيل قراءة الملفات الثابتة في نفس المجلد
+app.use(express.static(__dirname));
+
+// 3. مسار الصفحة الرئيسية لعرض ملف index.html
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
 
 // تخزين مؤقت للإيديات النشطة في الذاكرة مع وقت انتهاء الصلاحية
 let activeTargets = {};
