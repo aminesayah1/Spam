@@ -5,8 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <meta name="theme-color" content="#0a0a0a" />
     <title>STAIKA_XIT — لوحة السبام</title>
-    <!-- سكربت كلاود فلير للكابتشا -->
-    <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async="" defer=""></script>
     <style>
       :root {
         --bg:#0a0a0a; --bg-card:#0f0f0f; --bg-input:#0a0a0a; --bg-elevated:#161616;
@@ -152,9 +150,6 @@
               </button>
             </div>
           </div>
-
-          <!-- الكابتشا (Cloudflare Turnstile) -->
-          <div class="cf-turnstile" data-sitekey="0x4AAAAAAF9rDy-Vk1j2AWZd" style="margin: 15px 0; display: flex; justify-content: center;"></div>
 
           <!-- Targets list -->
           <div class="targets-title">
@@ -325,12 +320,6 @@
         const uid = document.getElementById("uid").value.trim();
         if (!uid || !/^\d+$/.test(uid)){ showToast("أدخل UID صحيح", "error"); return; }
         if (currentTargets.includes(uid)){ showToast("هذا UID موجود بالفعل", "error"); return; }
-        
-        const turnstileResponse = document.querySelector('[name="cf-turnstile-response"]');
-        if (!turnstileResponse || !turnstileResponse.value) {
-          showToast("⚠️ الرجاء إكمال التحقق الأمني (الكابتشا) أولاً", "error");
-          return;
-        }
         actuallyStart(uid);
       }
 
@@ -339,7 +328,6 @@
         if (res.success){
           document.getElementById("uid").value = "";
           showToast("✅ تم بدء السبام على " + uid, "success");
-          if (window.turnstile) window.turnstile.reset();
           localStorage.setItem('spam_time_' + uid, Date.now() + (15 * 60 * 1000));
           refreshStatus();
         } else {
